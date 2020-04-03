@@ -1,20 +1,31 @@
-<h1>TODO</h1>
-
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.title }}
-    <input type="submit" name="Create Todo" value="Todo">
-</form>
-
-{% for todo in todo_list %}
-<div>
-    <a href="{% url 'update' todo.id %}">업데이트</a>
-    <a href="{% url 'delete' todo.id %}">삭제</a>
-
-    {% if todo.complete == True %}
-        <strike>{{ todo }}</strike>
-    {% else %}
-        <span>{{ todo }}</span>
-    {% endif %}
+{% extends "tasks/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2>Add Item</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.title|as_crispy_field}}
+        </form>
+        <div>
+            {% for todo in todo_list %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {% if todo.complete == True %}
+                      <strike>{{ todo }}</strike>
+                    {% else %}
+                        <span>{{ todo }}</span>
+                    {% endif %}
+                    <span>
+                        <a href="{% url 'update' todo.id %}"><span class="badge badge-pill badge-info">update</span></a>
+                        <a href="{% url 'delete' todo.id %}"><span class="badge badge-pill badge-danger">delete</span></a>
+                    </span>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-{% endfor %}
+
+{% endblock %}

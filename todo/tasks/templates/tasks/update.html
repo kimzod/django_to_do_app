@@ -1,5 +1,16 @@
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="update">
-</form>
+{% extends "tasks/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h3>Todo Update</h3>
+        <hr>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            <a href="{% url 'index' %}" class="btn btn-link">Back</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
