@@ -1,0 +1,6 @@
+<p>"{{ item }}" 삭제하시겠습니까?</p>
+<form method="post" action="">
+    {% csrf_token %}
+    <input type="submit" value="확인">
+</form>
+<a href="{% url 'index' %}">취소</a>

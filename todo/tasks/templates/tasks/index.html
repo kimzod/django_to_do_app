@@ -1,1 +1,20 @@
 <h1>TODO</h1>
+
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.title }}
+    <input type="submit" name="Create Todo" value="Todo">
+</form>
+
+{% for todo in todo_list %}
+<div>
+    <a href="{% url 'update' todo.id %}">업데이트</a>
+    <a href="{% url 'delete' todo.id %}">삭제</a>
+
+    {% if todo.complete == True %}
+        <strike>{{ todo }}</strike>
+    {% else %}
+        <span>{{ todo }}</span>
+    {% endif %}
+</div>
+{% endfor %}
